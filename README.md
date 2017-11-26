@@ -1,19 +1,25 @@
-# TriviaGame
+# Cosmic Trivia
 
-## Batman Questions
+## What is the largest planet in our Solar System?
+- Jupiter
+- Mars
+- Venus
+- Saturn
 
-# Worst Batman Movie
-- Batman
-- Batman Returns
-- Batman & Robin
-- The Dark Knight
+## What is the only planet we can live on comfortably?
+- Earth
+- Uranus
+- Mercury
+- Pluto
 
-# Best Batman Movie
-- Batman Forever
-- The Dark Knight Rises
-- Batman Begins
-- Batman
+## What is the most prominent gasious element in Earth's atmoshpere?
+- Argon
+- Oxygen
+- Nitrogen
+- Krypton
 
-# Worst Batman Character
-
-# Best Batman Character
+## What recent Zodiac sign did NASA declare?
+- Taurus
+- Gemini
+- Aquarius
+- Ophiuchus
