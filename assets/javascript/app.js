@@ -39,3 +39,31 @@ var q4 = {
     "Ophiuchus"
   ]
 }
+
+$(document).ready(function(){
+
+  var timer = 60;
+  var intervalID;
+
+  function run() {
+    intervalId = setInterval(decrement, 1000);
+  }
+
+  function decrement() {
+    timer--;
+    $("#time").html("<h2>Time Remaining: " + timer + "</h2>");
+    if (timer === 0) {
+      stop();
+      alert("Time Up!");
+    }
+  }
+
+  function stop() {
+    clearInterval(intervalId);
+  }
+
+  run();
+});
+
+
+
