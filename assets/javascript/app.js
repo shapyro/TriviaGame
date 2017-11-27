@@ -59,6 +59,13 @@ $(document).ready(function(){
         alert("Time Up!");
       }
     }
+
+    //  STOP BUTTON FOR TESTING PURPOSES
+    $("#stop").click(function(){
+      stop();
+    });
+    //
+
     function stop() {
       clearInterval(intervalId);
     }
@@ -66,33 +73,6 @@ $(document).ready(function(){
   }
 
 
-//   timer();
-  
-//   function timer(timer){
-
-//   var timer = {
-
-//     time: 60,
-//     //  intervalID,
-
-//     run: function() {
-//       intervalId = setInterval(decrement, 1000);
-//     },
-
-//     decrement: function() {
-//       time--;
-//       $("#time").html("<h2>Time Remaining: " + time + "</h2>");
-//       if (time === 0) {
-//         stop();
-//       // alert("Time Up!");
-//       }
-//     },
-
-//     stop: function() {
-//       clearInterval(intervalId);
-//     }
-//   };
-// }
 });
 
 
