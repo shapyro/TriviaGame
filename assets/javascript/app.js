@@ -31,7 +31,7 @@ var q3 = {
   ]
 }
 var q4 = {
-  question: "What recent Zodiac sign did NASA declare, ruining the lives of many?",
+  question: "What recent Zodiac sign did NASA declare, altering many relationships",
   answer: [
     "Taurus",
     "Gemini",
@@ -42,27 +42,57 @@ var q4 = {
 
 $(document).ready(function(){
 
-  var timer = 60;
-  var intervalID;
+  setTimer();
 
-  function run() {
-    intervalId = setInterval(decrement, 1000);
-  }
+  function setTimer(){
+    var timer = 60;
+    var intervalID;
 
-  function decrement() {
-    timer--;
-    $("#time").html("<h2>Time Remaining: " + timer + "</h2>");
-    if (timer === 0) {
-      stop();
-      alert("Time Up!");
+    function run() {
+      intervalId = setInterval(decrement, 1000);
     }
+    function decrement() {
+      timer--;
+      $("#time").html("<h2>Time Remaining: " + timer + "</h2>");
+      if (timer === 0) {
+        stop();
+        alert("Time Up!");
+      }
+    }
+    function stop() {
+      clearInterval(intervalId);
+    }
+    run();
   }
 
-  function stop() {
-    clearInterval(intervalId);
-  }
 
-  run();
+//   timer();
+  
+//   function timer(timer){
+
+//   var timer = {
+
+//     time: 60,
+//     //  intervalID,
+
+//     run: function() {
+//       intervalId = setInterval(decrement, 1000);
+//     },
+
+//     decrement: function() {
+//       time--;
+//       $("#time").html("<h2>Time Remaining: " + time + "</h2>");
+//       if (time === 0) {
+//         stop();
+//       // alert("Time Up!");
+//       }
+//     },
+
+//     stop: function() {
+//       clearInterval(intervalId);
+//     }
+//   };
+// }
 });
 
 
