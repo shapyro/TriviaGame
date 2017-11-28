@@ -29,6 +29,14 @@ header {
   padding: 20px;
 }
 
+#start {
+  width: 15%;
+  font-size: 25px;
+  background: black;
+  color: white;
+  margin: 0 auto;
+}
+
 .content {
   margin: 0 20px 0 20px;
   padding: 20px;

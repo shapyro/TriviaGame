@@ -3,57 +3,66 @@
 //  if timer or answer is selected, display win or loss for a few seconds
 
 //  Question and Answer Objects
-var q1 = {
+var qaArray = [{
   question: "What is the largest planet in our Solar System?",
-  answer: [
+  choice: [
     "Jupiter",
     "Mars",
     "Venus",
-    "Saturn"
-  ]
-}
-var q2 = {
+    "Saturn"],
+  answer: 0
+  },{
   question: "What is the only planet we can live on comfortably?",
-  answer: [
+  choice: [
     "Earth",
     "Uranus",
     "Mercury",
-    "Pluto"
-  ]
-}
-var q3 = {
-  question: "What is the most prominent gasious element in Earth's atmoshpere?",
-  answer: [
+    "Pluto"],
+  answer: 0
+  },{
+  question: "What is the most prominent gaseous element in Earth's atmoshpere?",
+  choice: [
     "Argon",
     "Oxygen",
     "Nitrogen",
-    "Krypton"
-  ]
-}
-var q4 = {
+    "Krypton"],
+  answer: 2
+  },{
   question: "What recent Zodiac sign did NASA declare, altering many relationships",
-  answer: [
+  choice: [
     "Taurus",
     "Gemini",
     "Aquarius",
-    "Ophiuchus"
-  ]
-}
+    "Ophiuchus"],
+  answer: 3
+}];
+
+  //    <div id=time>Time Remaining:</div>
+  //    <div id=question>Question</div>
 
 $(document).ready(function(){
 
-  setTimer();
-
+  //  Start Game
+  $("#start").click(function() {
+    $("#start").hide();
+    setTimer();
+    qaDisplay();
+  });
+  
   function setTimer(){
     var timer = 60;
     var intervalID;
+
+    var timeLeft = $("<div>");
+    $(timeLeft).html("<h2>Time Remaining: " + timer + "</h2>");
+    $(".content").append(timeLeft);
 
     function run() {
       intervalId = setInterval(decrement, 1000);
     }
     function decrement() {
       timer--;
-      $("#time").html("<h2>Time Remaining: " + timer + "</h2>");
+      $(timeLeft).html("<h2>Time Remaining: " + timer + "</h2>");
       if (timer === 0) {
         stop();
         alert("Time Up!");
@@ -72,7 +81,25 @@ $(document).ready(function(){
     run();
   }
 
+  
+  //  array check
+  console.log(qaArray[1].answer);
+  //  Need to get Divs appended with Questions
+  //  Divs need to be selectable
+  function qaDisplay() {
+    var display =  $("<div>");
+    $(display).addClass('qaDisplay');
+    $(display).text(qaArray[0].question);
+    $('.content').append(display);
+    for (var i = 0; i < qaArray[0].choice.length; i++) {
+      var choiceDiv = $('<div>');
+      $(choiceDiv).text(qaArray[0].choice[i]);
+      $('.content').append(choiceDiv);
+    }
+  }
 
+
+//  GAME END  
 });
 
 
