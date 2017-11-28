@@ -54,6 +54,7 @@ $(document).ready(function(){
     var intervalID;
 
     var timeLeft = $("<div>");
+    $(timeLeft).addClass('time-left');
     $(timeLeft).html("<h2>Time Remaining: " + timer + "</h2>");
     $(".content").append(timeLeft);
 
@@ -93,11 +94,11 @@ $(document).ready(function(){
     $('.content').append(display);
     for (var i = 0; i < qaArray[0].choice.length; i++) {
       var choiceDiv = $('<div>');
+      $(choiceDiv).addClass('choices');
       $(choiceDiv).text(qaArray[0].choice[i]);
-      $('.content').append(choiceDiv);
+      $('.qaDisplay').append(choiceDiv);
     }
   }
-
 
 //  GAME END  
 });
