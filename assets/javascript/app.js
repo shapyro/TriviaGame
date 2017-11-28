@@ -2,7 +2,7 @@
 //  Timer for each question
 //  if timer or answer is selected, display win or loss for a few seconds
 
-//  Question and Answer Objects
+//  Question and Answer Object Array
 var qaArray = [{
   question: "What is the largest planet in our Solar System?",
   choice: [
@@ -10,7 +10,7 @@ var qaArray = [{
     "Mars",
     "Venus",
     "Saturn"],
-  answer: 0
+  answer: "Jupiter"
   },{
   question: "What is the only planet we can live on comfortably?",
   choice: [
@@ -90,14 +90,24 @@ $(document).ready(function(){
   function qaDisplay() {
     var display =  $("<div>");
     $(display).addClass('qaDisplay');
+    //  show question
     $(display).text(qaArray[0].question);
     $('.content').append(display);
+    //  loop through choice array and create choice divs
     for (var i = 0; i < qaArray[0].choice.length; i++) {
       var choiceDiv = $('<div>');
       $(choiceDiv).addClass('choices');
       $(choiceDiv).text(qaArray[0].choice[i]);
       $('.qaDisplay').append(choiceDiv);
     }
+  
+    //  click a choice to see if you got the answer
+    $('.choices').click(function (){
+      console.log($(this).text());
+      if ($(this).text() === qaArray[0].answer) {
+        alert("correct!");
+      }
+    });
   }
 
 //  GAME END  
