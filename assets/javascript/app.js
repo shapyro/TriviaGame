@@ -18,7 +18,7 @@ var qaArray = [{
     "Uranus",
     "Mercury",
     "Pluto"],
-  answer: 0
+  answer: "Earth"
   },{
   question: "What is the most prominent gaseous element in Earth's atmoshpere?",
   choice: [
@@ -26,7 +26,7 @@ var qaArray = [{
     "Oxygen",
     "Nitrogen",
     "Krypton"],
-  answer: 2
+  answer: "Nitrogen"
   },{
   question: "What recent Zodiac sign did NASA declare, altering many relationships",
   choice: [
@@ -34,7 +34,7 @@ var qaArray = [{
     "Gemini",
     "Aquarius",
     "Ophiuchus"],
-  answer: 3
+  answer: "Ophiuchus"
 }];
 
   //    <div id=time>Time Remaining:</div>
@@ -50,7 +50,7 @@ $(document).ready(function(){
   });
   
   function setTimer(){
-    var timer = 60;
+    var timer = 20;
     var intervalID;
 
     var timeLeft = $("<div>");
@@ -66,7 +66,7 @@ $(document).ready(function(){
       $(timeLeft).html("<h2>Time Remaining: " + timer + "</h2>");
       if (timer === 0) {
         stop();
-        alert("Time Up!");
+        let timer = 0;
       }
     }
 
@@ -82,32 +82,46 @@ $(document).ready(function(){
     run();
   }
 
-  
-  //  array check
-  console.log(qaArray[1].answer);
-  //  Need to get Divs appended with Questions
-  //  Divs need to be selectable
+  //  Display Questions and Answers
   function qaDisplay() {
-    var display =  $("<div>");
-    $(display).addClass('qaDisplay');
-    //  show question
-    $(display).text(qaArray[0].question);
-    $('.content').append(display);
-    //  loop through choice array and create choice divs
-    for (var i = 0; i < qaArray[0].choice.length; i++) {
-      var choiceDiv = $('<div>');
-      $(choiceDiv).addClass('choices');
-      $(choiceDiv).text(qaArray[0].choice[i]);
-      $('.qaDisplay').append(choiceDiv);
-    }
-  
-    //  click a choice to see if you got the answer
-    $('.choices').click(function (){
-      console.log($(this).text());
-      if ($(this).text() === qaArray[0].answer) {
-        alert("correct!");
+    
+    var qCount = 0;
+    next();
+
+    function next(){
+      var display =  $("<div>");
+      $(display).addClass('qaDisplay');
+      //  show question
+      $(display).text(qaArray[qCount].question);
+      $('.content').append(display);
+      //  loop through choice array and create choice divs
+      for (var i = 0; i < qaArray[qCount].choice.length; i++) {
+        var choiceDiv = $('<div>');
+        $(choiceDiv).addClass('choices');
+        $(choiceDiv).text(qaArray[qCount].choice[i]);
+        $('.qaDisplay').append(choiceDiv);
+        click();
       }
-    });
+    }
+
+    //  click a choice to see if you got the answer
+    function click(){
+      $('.choices').click(function (){
+        console.log($(this).text());
+        if ($(this).text() === qaArray[qCount].answer) {
+          alert("correct!");
+          qCount++;
+          stop();
+          $('.content').empty();
+          if (qCount < qaArray.length) {
+            setTimer();
+            next();
+          }
+        }
+      });
+
+    }
+
   }
 
 //  GAME END  

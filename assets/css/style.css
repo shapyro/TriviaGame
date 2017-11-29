@@ -49,6 +49,7 @@ header {
 .qaDisplay {
   position: relative;
   top: 50px;
+  font-size: 19px;
 }
 
 .choices {
