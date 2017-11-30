@@ -2,6 +2,10 @@
 //  Timer for each question
 //  if timer or answer is selected, display win or loss for a few seconds
 
+correct = 0;
+incorrect = 0;
+unanswered = 0;
+
 //  Question and Answer Object Array
 var qaArray = [{
   question: "What is the largest planet in our Solar System?",
@@ -37,18 +41,16 @@ var qaArray = [{
   answer: "Ophiuchus"
 }];
 
-  //    <div id=time>Time Remaining:</div>
-  //    <div id=question>Question</div>
-
 $(document).ready(function(){
 
   //  Start Game
   $("#start").click(function() {
     $("#start").hide();
     setTimer();
-    qaDisplay();
+    next();
+    //  qaDisplay();
   });
-  
+
   function setTimer(){
     var timer = 20;
     var intervalID;
@@ -64,9 +66,17 @@ $(document).ready(function(){
     function decrement() {
       timer--;
       $(timeLeft).html("<h2>Time Remaining: " + timer + "</h2>");
+      checkTime();
+    }
+
+    function checkTime() {
       if (timer === 0) {
+        unanswered++;
+        qCount++;
         stop();
-        let timer = 0;
+        $('.content').empty();
+        keepGoing();
+        console.log(timer);
       }
     }
 
@@ -78,15 +88,16 @@ $(document).ready(function(){
 
     function stop() {
       clearInterval(intervalId);
+      timer = 0;
     }
     run();
   }
 
   //  Display Questions and Answers
-  function qaDisplay() {
+  //  function qaDisplay() {
     
     var qCount = 0;
-    next();
+    //  next();
 
     function next(){
       var display =  $("<div>");
@@ -96,35 +107,95 @@ $(document).ready(function(){
       $('.content').append(display);
       //  loop through choice array and create choice divs
       for (var i = 0; i < qaArray[qCount].choice.length; i++) {
-        var choiceDiv = $('<div>');
+        var choiceDiv = $('<button>');
         $(choiceDiv).addClass('choices');
         $(choiceDiv).text(qaArray[qCount].choice[i]);
         $('.qaDisplay').append(choiceDiv);
-        click();
+        clickBtn();
       }
     }
 
     //  click a choice to see if you got the answer
-    function click(){
-      $('.choices').click(function (){
-        console.log($(this).text());
-        if ($(this).text() === qaArray[qCount].answer) {
-          alert("correct!");
-          qCount++;
-          stop();
-          $('.content').empty();
-          if (qCount < qaArray.length) {
-            setTimer();
-            next();
+    function clickBtn(){
+      $('.choices').unbind().click(function (){
+        //  probably need correct/incorrect functions
+        var userGuess = $(this).text();
+        yes();
+        
+
+        function yes(){
+          if (userGuess === qaArray[qCount].answer) {
+            correct++;
+            console.log(userGuess);
+            console.log("correct: " + correct);
+            qCount++;
+            stop();
+            $('.content').empty();
+            if (qCount < qaArray.length) {
+              setTimer();
+              next();
+            } 
+          } else {
+            no();
           }
+          gameEnd();
         }
+        function no() {
+            incorrect++;
+            console.log(userGuess);
+            console.log("incorrect: " + incorrect);
+            qCount++;
+            stop();
+            $('.content').empty();
+            keepGoing();
+            gameEnd();
+            // if (qCount < qaArray.length) {
+            //   setTimer();
+            //   next();
+            // }   
+        }
+
       });
-
     }
+  //  }
 
+  function keepGoing() {
+    if (qCount <= qaArray.length ) {
+      next();
+    }
+    if ($('.qaDisplay').length > 0) {
+      setTimer();
+    }
   }
+  //  Still need to display wins/losses/unanswered
+  //  Still need to show image of correct answer with an intermission
+  //  Is the timer still running from previous Trivia questions???
 
 //  GAME END  
+//  gameEnd();
+
+function gameEnd() {
+  if ((correct + incorrect + unanswered) === qaArray.length) {
+    var closeOut =  $("<div>");
+    $(closeOut).addClass('qaDisplay');
+    //  show question
+    $(closeOut).html(
+      '<h2> Correct: ' + correct + '</h2>'
+      + '<h2> Incorrect ' + incorrect + '</h2>'
+      + '<h2> Unanswered ' + unanswered + '</h2>'
+    )
+    $('.content').append(closeOut);
+
+    // $(".content").append(
+    //   `<div>${correct}</div>
+    //    <div>${incorrect}</div>
+    //    <div>${unanswered}</div>
+    //   `
+    // );
+    //  <img src=${response.Poster}/>
+      
+  }
+}
 });
 
 
