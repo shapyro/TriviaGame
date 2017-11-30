@@ -147,12 +147,12 @@ $(document).ready(function(){
             qCount++;
             stop();
             $('.content').empty();
-            keepGoing();
-            gameEnd();
-            // if (qCount < qaArray.length) {
-            //   setTimer();
-            //   next();
-            // }   
+            //  keepGoing();
+            //  gameEnd();
+            if (qCount < qaArray.length) {
+              setTimer();
+              next();
+            }   
         }
 
       });
@@ -176,8 +176,9 @@ $(document).ready(function(){
 
 function gameEnd() {
   if ((correct + incorrect + unanswered) === qaArray.length) {
+    stop();
     var closeOut =  $("<div>");
-    $(closeOut).addClass('qaDisplay');
+    $(closeOut).addClass('finalDisplay');
     //  show question
     $(closeOut).html(
       '<h2> Correct: ' + correct + '</h2>'
