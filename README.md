@@ -6,7 +6,7 @@
 - Venus
 - Saturn
 
-## What is the only planet we can live on comfortably?
+## What is the only planet we can live on?
 - Earth
 - Uranus
 - Mercury

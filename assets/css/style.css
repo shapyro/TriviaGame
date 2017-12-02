@@ -11,7 +11,7 @@ body {
   margin: 0 auto;
 }
 
-#stop {
+/* #stop {
   position: fixed;
   left: 10px;
   top: 10px;
@@ -19,7 +19,7 @@ body {
   font-size: 20px;
   color: white;
   background: red;
-}
+} */
 
 header {
   font-family: 'Atomic Age';
@@ -55,7 +55,18 @@ header {
 .choices {
   margin: 10px 25%;
   padding: 20px;
+  font-family: 'Ubuntu Condensed';
   background: greenyellow;
   width: 50%;
   font-size: 30px;
+}
+
+.startOver {
+  position: relative;
+  top: 250px;
+  width: 15%;
+  font-size: 25px;
+  background: black;
+  color: white;
+  margin: 0 auto;
 }
