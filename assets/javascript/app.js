@@ -84,26 +84,9 @@ $(document).ready(function(){
         restart();
         next();
       } 
-      // restart();
-      // next();
       gameEnd();
-       //keepGoing();
     }
   }
-
-  //   //  STOP BUTTON FOR TESTING PURPOSES
-  //   $("#stop").click(function(){
-  //     stop();
-  //   });
-  //   //
-
-  //   function stop() {
-  //     clearInterval(intervalId);
-  //     timer = 0;
-  //   }
-  //   stop();
-  //   run();
-  // }
     
   var qCount = 0;
 
@@ -161,16 +144,6 @@ $(document).ready(function(){
       }
     });
   }
-
-  // function keepGoing() {
-  //   if (qCount <= qaArray.length ) {
-  //     next();
-  //   }
-  //   if ($('.qaDisplay').length > 0) {
-  //     restart();
-  //     //  setTimer();
-  //   }
-  // }
 
   //  Still need to show image of correct answer with an intermission
 
