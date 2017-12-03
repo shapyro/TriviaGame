@@ -16,7 +16,7 @@ var qaArray = [{
     "Venus",
     "Saturn"],
   answer: "Jupiter",
-  img: "./images/jupiter.png"
+  img: "assets/images/jupiter.png"
   },{
   question: "What is the only planet we can live on comfortably?",
   choice: [
@@ -25,7 +25,7 @@ var qaArray = [{
     "Mercury",
     "Pluto"],
   answer: "Earth",
-  img: "./images/earth.jpg"
+  img: "assets/images/earth.jpg"
   },{
   question: "What is the most prominent gaseous element in Earth's atmoshpere?",
   choice: [
@@ -34,7 +34,7 @@ var qaArray = [{
     "Nitrogen",
     "Krypton"],
   answer: "Nitrogen",
-  img: "./images/Nitrogen-Symbol.jpg"
+  img: "assets/images/Nitrogen-Symbol.jpg"
   },{
   question: "What recent Zodiac sign did NASA declare, altering many relationships",
   choice: [
@@ -43,11 +43,10 @@ var qaArray = [{
     "Aquarius",
     "Ophiuchus"],
   answer: "Ophiuchus",
-  img: "./images/ophiucus.jpg"
+  img: "assets/images/ophiucus.jpg"
 }];
 
 $(document).ready(function(){
-
 
   //  Start Game
   $("#start").click(function() {
@@ -56,7 +55,7 @@ $(document).ready(function(){
     next();
   });
 
-  var intervalId; // = setInterval(function(){restart()}, 1000);
+  var intervalId;
   
   function restart() {
     clearInterval(intervalId)
@@ -80,23 +79,24 @@ $(document).ready(function(){
       unanswered++;
       qCount++;
       $('.content').empty();
-      if (qCount < qaArray.length) {
-        restart();
-        next();
-      } 
-      gameEnd();
+      showAnswer();
+      intermission();
     }
   }
     
   var qCount = 0;
+  var correctAnswer;
+  var correctImg;
 
   function next(){
     var display =  $("<div>");
     $(display).addClass('qaDisplay');
     //  show question
     $(display).text(qaArray[qCount].question);
+    correctAnswer = qaArray[qCount].answer;
+    correctImg = qaArray[qCount].img;
     $('.content').append(display);
-    //  loop through choice array and create choice divs
+    //  loop through choice array and create choice divs to be presented
     for (var i = 0; i < qaArray[qCount].choice.length; i++) {
       var choiceDiv = $('<button>');
       $(choiceDiv).addClass('choices');
@@ -111,8 +111,8 @@ $(document).ready(function(){
     $('.choices').unbind().click(function (){
       var userGuess = $(this).text();
       yes();
-      gameEnd();
-        
+      showAnswer();
+      intermission();
 
       function yes(){
         if (userGuess === qaArray[qCount].answer) {
@@ -120,12 +120,7 @@ $(document).ready(function(){
           console.log(userGuess);
           console.log("correct: " + correct);
           qCount++;
-          stop();
           $('.content').empty();
-          if (qCount < qaArray.length) {
-            restart();
-            next();
-          } 
         } else {
           no();
         }
@@ -136,33 +131,50 @@ $(document).ready(function(){
         console.log(userGuess);
         console.log("incorrect: " + incorrect);
         qCount++;
-        $('.content').empty();
-        if (qCount < qaArray.length) {
-          restart();
-          next();
-        }    
+        $('.content').empty();  
       }
     });
   }
 
-  //  Still need to show image of correct answer with an intermission
+  function showAnswer () {
+    //  answer
+    answerDiv = $('<div>')
+    $(answerDiv).addClass('answer');
+    $(answerDiv).html('The correct answer is: ' + correctAnswer);
+    $('.content').append(answerDiv);
+    //  image
+    answerImg = $('<img>');
+    $(answerImg).attr('id', 'correctImg');
+    $(answerImg).attr('src', correctImg);
+    $('.content').append(answerImg);
+  }
+  
+  //  allow answer to be presented befor proceeding
+  function intermission () {
+    setTimeout(function(){
+      $('.content').empty();
+      if ((correct + incorrect + unanswered) === qaArray.length) {
+        gameEnd();
+      } else {
+        restart();
+        next();
+      }    
+    }, 5000);
+  }
 
   //  GAME END  
   function gameEnd() {
-    if ((correct + incorrect + unanswered) === qaArray.length) {
-        clearInterval(intervalId);
-        var closeOut =    $("<div>");
-        $(closeOut).addClass('finalDisplay');
-        $(closeOut).html(
-            `<div>${"Correct: " + correct}</div>
-             <div>${"Incorrect: " + incorrect}</div>
-             <div>${"Unanswered: " + unanswered}</div>
-            `
-        );
-        $('.content').append(closeOut);
-        //    <img src=${?}/>    
-        restartGame();    
-    }
+    clearInterval(intervalId);
+    var closeOut = $("<div>");
+    $(closeOut).addClass('finalDisplay');
+    $(closeOut).html(
+      `<div>${"Correct: " + correct}</div>
+      <div>${"Incorrect: " + incorrect}</div>
+      <div>${"Unanswered: " + unanswered}</div>
+      `
+    );
+    $('.content').append(closeOut);   
+    restartGame();    
   }
 
   function restartGame() {
